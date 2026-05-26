@@ -42,3 +42,12 @@ Questo file contiene una funzione che costruisce il prompt per trasformare la do
 
 Per ora non chiamo ancora OpenAI.
 Prima controllo solo che il prompt venga costruito bene.
+
+## Avanzamento 03 - OpenAI per creare query
+
+In questo step ho creato il file `openai_service.py`.
+
+Questo file usa OpenAI per trasformare una domanda normale in una query più utile per la ricerca web.
+
+Per ora non uso ancora Tavily.
+Sto testando solo se OpenAI risponde con una query breve.
