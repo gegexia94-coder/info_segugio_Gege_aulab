@@ -33,3 +33,12 @@ Variabili usate:
 - OPENAI_MODEL: modello OpenAI scelto per il progetto
 
 Ho fatto anche un test da terminale per verificare che le chiavi siano presenti, senza stamparle.
+
+## Avanzamento 02 - Prompt per query di ricerca
+
+In questo step ho creato il file `prompts.py`.
+
+Questo file contiene una funzione che costruisce il prompt per trasformare la domanda dell'utente in una query più adatta alla ricerca web.
+
+Per ora non chiamo ancora OpenAI.
+Prima controllo solo che il prompt venga costruito bene.
