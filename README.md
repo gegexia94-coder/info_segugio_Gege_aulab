@@ -20,3 +20,16 @@ Poi cerca informazioni online e prepara una risposta riassunta.
 Le chiavi API non devono stare nel codice.
 Devono stare solo nel file .env.
 
+## Avanzamento 01 - Configurazione
+
+In questo step ho aggiunto il file `config.py`.
+
+Questo file serve per leggere le chiavi API dal file `.env`, senza scriverle direttamente nel codice.
+
+Variabili usate:
+
+- OPENAI_API_KEY: chiave per usare OpenAI
+- TAVILY_API_KEY: chiave per usare Tavily
+- OPENAI_MODEL: modello OpenAI scelto per il progetto
+
+Ho fatto anche un test da terminale per verificare che le chiavi siano presenti, senza stamparle.
