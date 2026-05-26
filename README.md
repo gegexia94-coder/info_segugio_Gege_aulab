@@ -51,3 +51,12 @@ Questo file usa OpenAI per trasformare una domanda normale in una query più uti
 
 Per ora non uso ancora Tavily.
 Sto testando solo se OpenAI risponde con una query breve.
+
+## Avanzamento 04 - Ricerca web con Tavily
+
+In questo step ho creato il file `tavily_service.py`.
+
+Questo file usa Tavily per fare una ricerca web partendo da una query.
+
+Per ora Tavily viene testato da solo.
+Nel prossimo step unirò OpenAI e Tavily nello stesso flusso.
