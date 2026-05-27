@@ -60,3 +60,14 @@ Questo file usa Tavily per fare una ricerca web partendo da una query.
 
 Per ora Tavily viene testato da solo.
 Nel prossimo step unirò OpenAI e Tavily nello stesso flusso.
+
+## Avanzamento 05 - Pipeline OpenAI + Tavily
+
+In questo step ho creato `search_pipeline.py`.
+
+Questo file collega due parti:
+- OpenAI, che trasforma la domanda in una query
+- Tavily, che usa quella query per cercare online
+
+Per ora il flusso viene testato solo da terminale.
+Nel prossimo step lo collegherò alla chat Chainlit.
