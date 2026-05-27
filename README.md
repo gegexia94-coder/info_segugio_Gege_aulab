@@ -71,3 +71,13 @@ Questo file collega due parti:
 
 Per ora il flusso viene testato solo da terminale.
 Nel prossimo step lo collegherò alla chat Chainlit.
+
+## Avanzamento 06 - Collegamento con Chainlit
+
+In questo step ho collegato la pipeline alla chat Chainlit.
+
+Ora l'utente può scrivere una domanda nel browser.
+Il sistema genera una query con OpenAI, cerca fonti con Tavily e mostra i risultati nella chat.
+
+Per ora mostro le fonti grezze.
+Nel prossimo step aggiungerò una risposta finale riassunta.
