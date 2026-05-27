@@ -81,3 +81,16 @@ Il sistema genera una query con OpenAI, cerca fonti con Tavily e mostra i risult
 
 Per ora mostro le fonti grezze.
 Nel prossimo step aggiungerò una risposta finale riassunta.
+
+## Avanzamento 07 - Risposta finale con fonti
+
+In questo step ho aggiunto la risposta finale generata con OpenAI.
+
+Il sistema ora:
+- prende la domanda dell'utente
+- crea una query di ricerca
+- cerca fonti con Tavily
+- passa le fonti a OpenAI
+- produce una risposta finale in italiano
+
+La risposta deve usare solo le fonti trovate.
