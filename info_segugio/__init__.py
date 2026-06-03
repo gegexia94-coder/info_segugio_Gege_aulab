@@ -7,16 +7,31 @@ def format_source(item: dict) -> str:
     url = item.get("url", "")
     return f"- [{title}]({url})"
 
+def format_search_step(step: dict) -> str:
+    text = f"- Giro {step['round']}: `{step['query']}`"
+
+    if "reflection" in step:
+        reason = step["reflection"].get("reason", "")
+        text += f"\n  - Motivo nuova ricerca: {reason}"
+
+    return text
+
 @cl.on_message
 async def main(message: cl.Message):
     user_question = message.content
 
-    await cl.Message(content="Sto cercando fonti affidabili...").send()
+    await cl.Message(
+        author="info_segugio",
+        content="Sto facendo una ricerca iterativa..."
+    ).send()
 
     data = run_search_flow(user_question)
+
+    steps = "\n".join(format_search_step(step) for step in data["search_steps"])
     sources = "\n".join(format_source(item) for item in data["results"])
 
     await cl.Message(
+        author="info_segugio",
         content=f"""
 ## Risposta Info Segugio
 
@@ -24,10 +39,10 @@ async def main(message: cl.Message):
 
 ---
 
-**Query usata:** `{data["query"]}`
+### Ricerche automatiche eseguite
+{steps}
 
-**Fonti trovate:** {len(data["results"])}
-
+### Fonti finali
 {sources}
 """
     ).send()

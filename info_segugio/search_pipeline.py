@@ -18,41 +18,37 @@ def remove_duplicate_sources(results: list[dict]) -> list[dict]:
 
     return unique_results
 
-
-def run_search_flow(user_question: str, max_rounds: int = 2) -> dict:
-    first_query = generate_search_query(user_question)
-
-    all_results = []
+def run_search_flow(user_question: str) -> dict:
     search_steps = []
+    all_results = []
 
-    first_results = search_web(first_query, max_results=3)
-    all_results.extend(first_results)
+    query = generate_search_query(user_question)
 
-    search_steps.append({
-        "round": 1,
-        "query": first_query,
-        "results_count": len(first_results),
-    })
+    for round_number in range(1, 3):
+        results = search_web(query)
+        all_results.extend(results)
 
-    reflection = generate_reflection(user_question, all_results)
+        step = {
+            "round": round_number,
+            "query": query,
+        }
 
-    second_query = reflection.get("next_query") or f"{user_question} approfondimento informazioni aggiornate"
-    second_results = search_web(second_query, max_results=3)
-    all_results.extend(second_results)
+        summary = generate_final_answer(user_question, results)
+        reflection = generate_reflection(query, summary)
+        step["reflection"] = reflection
 
-    search_steps.append({
-        "round": 2,
-        "query": second_query,
-        "results_count": len(second_results),
-        "reflection": reflection,
-    })
+        search_steps.append(step)
+
+        if not reflection.get("needs_more_search"):
+            break
+
+        query = reflection.get("next_query", query)
 
     final_results = remove_duplicate_sources(all_results)
-    final_answer = generate_final_answer(user_question, final_results)
+    answer = generate_final_answer(user_question, final_results)
 
     return {
-        "question": user_question,
+        "answer": answer,
         "results": final_results,
-        "answer": final_answer,
         "search_steps": search_steps,
     }

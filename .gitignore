@@ -3,4 +3,8 @@
 __pycache__/
 *.pyc
 .DS_Store
-.chainlit/
+
+.chainlit/*
+!.chainlit/config.toml
+__pycache__/
+*.pyc

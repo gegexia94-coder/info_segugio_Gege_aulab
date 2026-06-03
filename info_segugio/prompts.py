@@ -1,33 +1,24 @@
-# Qui teniamo i prompt del progetto.
-# Li separo dal file principale per non mischiare logica e testi lunghi.
-
 def build_search_query_prompt(user_question: str) -> str:
     return f"""
-Trasforma la domanda dell'utente in una query breve e precisa per una ricerca web.
+Trasforma questa domanda in una query breve e precisa per ricerca web.
 
 Domanda utente:
 {user_question}
 
-Regole:
-- usa parole semplici
-- non inventare informazioni
-- mantieni il senso della domanda
-- restituisci solo la query finale
+Rispondi solo con la query.
 """
 
 def build_final_answer_prompt(user_question: str, results: list[dict]) -> str:
     sources_text = ""
 
     for index, item in enumerate(results, start=1):
-        sources_text += f"""
-Fonte {index}
-Titolo: {item.get("title")}
-URL: {item.get("url")}
-Testo: {item.get("content")}
-"""
+        title = item.get("title", "Titolo non disponibile")
+        content = item.get("content", "")
+        url = item.get("url", "")
+        sources_text += f"\nFonte {index}: {title}\nURL: {url}\nContenuto: {content}\n"
 
     return f"""
-Rispondi alla domanda dell'utente usando solo le fonti sotto.
+Rispondi alla domanda usando solo le fonti raccolte.
 
 Domanda:
 {user_question}
@@ -35,9 +26,23 @@ Domanda:
 Fonti:
 {sources_text}
 
-Regole:
-- rispondi in italiano semplice
-- non inventare informazioni
-- se le fonti non bastano, dillo chiaramente
-- chiudi con una breve lista delle fonti usate
+Scrivi una risposta chiara, sintetica e verificabile.
+"""
+
+def build_reflection_prompt(query: str, summary: str) -> str:
+    return f"""
+Valuta se serve una nuova ricerca web.
+
+Query usata:
+{query}
+
+Riassunto attuale:
+{summary}
+
+Rispondi solo in JSON con questa struttura:
+{{
+  "needs_more_search": true,
+  "reason": "motivo breve",
+  "next_query": "nuova query se serve"
+}}
 """
