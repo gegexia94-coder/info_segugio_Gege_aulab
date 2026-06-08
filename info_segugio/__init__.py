@@ -8,13 +8,21 @@ def format_source(item: dict) -> str:
     return f"- [{title}]({url})"
 
 def format_search_step(step: dict) -> str:
-    text = f"- Giro {step['round']}: `{step['query']}`"
+    reflection = step.get("reflection", {})
 
-    if "reflection" in step:
-        reason = step["reflection"].get("reason", "")
-        text += f"\n  - Motivo nuova ricerca: {reason}"
+    text = f"- Giro {step['round']}: `{step['query']}`"
+    text += f"\n  - Risultati trovati: {step.get('results_found', 0)}"
+
+    reason = reflection.get("reason", "Motivo non disponibile")
+    next_query = reflection.get("next_query", "")
+
+    text += f"\n  - Motivo nuova ricerca: {reason}"
+
+    if next_query:
+        text += f"\n  - Prossima query: `{next_query}`"
 
     return text
+
 
 @cl.on_message
 async def main(message: cl.Message):

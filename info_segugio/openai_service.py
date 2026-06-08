@@ -1,4 +1,5 @@
 import json
+import re
 from openai import OpenAI
 
 from info_segugio.config import Config
@@ -29,10 +30,18 @@ def generate_reflection(query: str, summary: str) -> dict:
     try:
         return json.loads(answer)
     except json.JSONDecodeError:
+        match = re.search(r"\{.*\}", answer, re.DOTALL)
+
+        if match:
+            try:
+                return json.loads(match.group(0))
+            except json.JSONDecodeError:
+                pass
+
         return {
-            "needs_more_search": False,
-            "reason": "Risposta reflection non valida in JSON.",
-            "next_query": "",
+            "needs_more_search": True,
+            "reason": "Reflection non leggibile: continuo con una query alternativa.",
+            "next_query": f"{query} approfondimento fonti aggiornate dettagli",
         }
 
 

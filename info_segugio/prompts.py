@@ -31,7 +31,9 @@ Scrivi una risposta chiara, sintetica e verificabile.
 
 def build_reflection_prompt(query: str, summary: str) -> str:
     return f"""
-Valuta se serve una nuova ricerca web.
+Sei un assistente di web research.
+
+Devi valutare se serve una nuova ricerca web per migliorare la risposta.
 
 Query usata:
 {query}
@@ -39,10 +41,14 @@ Query usata:
 Riassunto attuale:
 {summary}
 
-Rispondi solo in JSON con questa struttura:
+Rispondi SOLO con JSON valido.
+Non scrivere markdown.
+Non scrivere spiegazioni fuori dal JSON.
+
+Formato obbligatorio:
 {{
   "needs_more_search": true,
-  "reason": "motivo breve",
-  "next_query": "nuova query se serve"
+  "reason": "spiega in 1 frase cosa manca",
+  "next_query": "scrivi una nuova query precisa e diversa"
 }}
 """
